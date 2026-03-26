@@ -1,0 +1,36 @@
+<div id="scout-pro-calculator" style="font-family: sans-serif; max-width: 400px; padding: 20px; border: 1px solid #ccc; border-radius: 10px;">
+    <h3>🚀 Scout-Pro: Simulador de Dobra</h3>
+    
+    <label>Dia Atual da Sequência:</label>
+    <input type="number" id="dia" value="1" min="1" max="28" style="width: 100%; margin: 10px 0; padding: 5px;">
+    
+    <button onclick="calcularDobra()" style="width: 100%; background: #007bff; color: white; border: none; padding: 10px; cursor: pointer; border-radius: 5px;">
+        Calcular Próximo Alvo
+    </button>
+
+    <div id="resultado" style="margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 5px; display: none;">
+        <p><strong>Banca Atual:</strong> <span id="bancaAtual"></span></p>
+        <p><strong>Objetivo de Hoje (Odd 2.0):</strong> <span id="alvo"></span></p>
+        <p><strong>Risco da Sequência:</strong> <span id="risco"></span></p>
+    </div>
+</div>
+
+<script>
+function calcularDobra() {
+    const dia = document.getElementById('dia').value;
+    const inicial = 0.01;
+    
+    // Cálculo da banca no início do dia escolhido
+    const bancaHoje = inicial * Math.pow(2, dia - 1);
+    const alvoAmanha = bancaHoje * 2;
+    
+    // Cálculo da probabilidade matemática (considerando odd 2.0 = 50% de chance)
+    const probabilidade = (Math.pow(0.5, dia) * 100).toFixed(8);
+
+    document.getElementById('bancaAtual').innerText = "R$ " + bancaHoje.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+    document.getElementById('alvo').innerText = "R$ " + alvoAmanha.toLocaleString('pt-BR', {minimumFractionDigits: 2});
+    document.getElementById('risco').innerText = probabilidade + "% de chance de chegar aqui";
+    
+    document.getElementById('resultado').style.display = 'block';
+}
+</script>
